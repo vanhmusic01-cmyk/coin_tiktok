@@ -139,7 +139,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
 <div>
 <div class="title">Send Coins</div>
 <div class="balance" id="balance"><img src="https://static6.tgstat.ru/channels/_0/e0/e0b810e57ba3977744f9cfc8fab7975a.jpg" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;border-radius:50%;"/>429,037,106</div>
-<div class="bank">Thẻ ngân hàng: ********8683</div><div class="linked">đã liên kết </div></div>
+<div class="bank">Thẻ ngân hàng: ********8683</div><div class="linked">đã liên kết</div></div>
 </div>
 </div>
 <div class="main">
@@ -201,7 +201,7 @@ document.getElementById('sendBtn').addEventListener('click', () => {
     spinner.style.display = 'none';
     balance -= sendAmount;
     balanceEl.textContent = `Wallet: ${balance.toLocaleString()} coins`;
-    text.innerHTML = ` Transaction successful!<br>${sendAmount} coins sent to ${user}.`;
+    text.innerHTML = `Transaction successful!<br>${sendAmount} coins sent to ${user}.`;
     setTimeout(() => { popup.style.display = 'none'; }, 2200);
   }, 2300);
 });
