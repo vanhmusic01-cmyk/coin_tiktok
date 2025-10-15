@@ -38,26 +38,20 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
   margin-top:10px;
   justify-items:center;
 }
-.coin{
+.coin{ popup{
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
   background:#fff;
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  padding:12px;
-  cursor:pointer;
-  transition:0.2s;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  padding:18px 20px;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
   text-align:center;
+  display:none;
+  z-index:50;
+  width:260px;
+  pointer-events:none; /* phải nằm trong ngoặc */
 }
-.coin:hover{transform:scale(1.02);border-color:#00e0ff}
-.coin.active{border-color:#00e0ff;box-shadow:0 0 6px rgba(0,224,255,0.4)}
-.coin .top{display:flex;align-items:center;gap:8px;justify-content:center}
-.coin .icon{width:28px;height:28px;border-radius:50%;overflow:hidden}
-.coin .usd{margin-top:6px;font-size:13px;color:#555}
-.btn{width:100%;padding:12px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;font-size:16px;margin-top:16px;cursor:pointer}
-.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:18px 20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.1);text-align:center;display:none;z-index:50;width:260px};pointer-events:none;
 .spinner{width:28px;height:28px;border:3px solid rgba(0,0,0,0.1);border-top-color:#000;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -172,6 +166,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
 </div>
 <script>
 let balance = 429037106;
+const balanceNumEl = document.getElementById('balanceNumber');
 const balanceEl = document.getElementById('balance');
 const coins = document.querySelectorAll('.coin');
 const usernameEl = document.getElementById('username');
