@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="manifest.json">
 <meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Send Coins - TikTok</title>
 <style>
 :root{
@@ -22,7 +22,7 @@
 }
 *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
 html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
-.app{max-width:430px;margin:0 auto;height:100vh;display:flex;flex-direction:column;align-items:stretch;
+.app{max-width:430px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;align-items:stretch;
   border-left:1px solid rgba(0,0,0,0.04);border-right:1px solid rgba(0,0,0,0.04);}
 .header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid rgba(0,0,0,0.05);}
 .header .left{display:flex;align-items:center;gap:10px}
@@ -57,7 +57,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
 .coin .icon{width:28px;height:28px;border-radius:50%;overflow:hidden}
 .coin .usd{margin-top:6px;font-size:13px;color:#555}
 .btn{width:100%;padding:12px;border:none;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;font-size:16px;margin-top:16px;cursor:pointer}
-.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:18px 20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.1);text-align:center;display:none;z-index:50;width:260px}
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:18px 20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.1);text-align:center;display:none;z-index:50;width:260px};pointer-events:none;
 .spinner{width:28px;height:28px;border:3px solid rgba(0,0,0,0.1);border-top-color:#000;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -113,7 +113,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
   height: 70px;
   margin: 0 auto;
 }
-<!-- added bank/link styles -->
+/* added bank/link styles */
 .bank {
   font-size: 12px;
   color: var(--muted);
@@ -138,14 +138,22 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
 <div class="logo-img"><img alt="TikTok" src="https://marketplace.canva.com/oIHjw/MAGzNgoIHjw/1/tl/canva-tik-tok-logo-MAGzNgoIHjw.png" style="width:100%;height:100%;object-fit:cover"/></div>
 <div>
 <div class="title">Send Coins</div>
-<div class="balance" id="balance"><img src="https://static6.tgstat.ru/channels/_0/e0/e0b810e57ba3977744f9cfc8fab7975a.jpg" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;border-radius:50%;"/>429,037,106</div>
+<div class="balance" id="balance">
+  <img src="https://static6.tgstat.ru/channels/_0/e0/e0b810e57ba3977744f9cfc8fab7975a.jpg"
+       style="width:16px;height:16px;vertical-align:middle;margin-right:4px;border-radius:50%;" />
+  <span id="balanceNumber">429,037,106</span>
+</div>
 <div class="bank">Thẻ ngân hàng: ********8683</div><div class="linked">đã liên kết</div></div>
 </div>
 </div>
 <div class="main">
 <div class="panel">
-<label style="font-size:13px;color:var(--muted);margin-bottom:6px;display:block">Enter username</label>
-<input id="username" placeholder="@username" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:14px"/>
+<label for="username" style="font-size:13px;color:var(--muted);margin-bottom:6px;display:block">Enter username</label>
+<input id="username" type="text" inputmode="text"
+  autocomplete="off" autocapitalize="off" autocorrect="off"
+  placeholder="@username" autofocus
+  style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:14px" />
+
 <div class="coins" id="coins">
 <div class="coin" data-coins="70" data-price="$0.74"><div class="top"><div class="icon"><img src="https://static6.tgstat.ru/channels/_0/e0/e0b810e57ba3977744f9cfc8fab7975a.jpg" style="width:100%;height:100%;object-fit:cover"/></div><div>70</div></div><div class="usd">$0.74 USD</div></div>
 <div class="coin" data-coins="350" data-price="$3.70"><div class="top"><div class="icon"><img src="https://static6.tgstat.ru/channels/_0/e0/e0b810e57ba3977744f9cfc8fab7975a.jpg" style="width:100%;height:100%;object-fit:cover"/></div><div>350</div></div><div class="usd">$3.70 USD</div></div>
@@ -166,6 +174,12 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);}
 let balance = 429037106;
 const balanceEl = document.getElementById('balance');
 const coins = document.querySelectorAll('.coin');
+const usernameEl = document.getElementById('username');
+usernameEl.addEventListener('focus', () => {
+  setTimeout(() => {
+    usernameEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, 250);
+});  
 let selected = null;
 
 coins.forEach(c => {
@@ -194,15 +208,16 @@ document.getElementById('sendBtn').addEventListener('click', () => {
   const text = document.getElementById('popupText');
 
   popup.style.display = 'block';
+  popup.style.pointerEvents = 'auto';
   spinner.style.display = 'block';
   text.textContent = `Sending ${sendAmount} coins to ${user}...`;
 
   setTimeout(() => {
     spinner.style.display = 'none';
     balance -= sendAmount;
-    balanceEl.textContent = `Wallet: ${balance.toLocaleString()} coins`;
+    balanceNumEl.textContent = balance.toLocaleString();
     text.innerHTML = `Transaction successful!<br>${sendAmount} coins sent to ${user}.`;
-    setTimeout(() => { popup.style.display = 'none'; }, 2200);
+    setTimeout(() => { popup.style.display = 'none';popup.style.pointerEvents = 'none'; }, 2200);
   }, 2300);
 });
 </script>
